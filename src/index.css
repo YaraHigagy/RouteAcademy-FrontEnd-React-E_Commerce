@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.root,
+#root {
+    --black-mut:#212529;
+    --primary:#0d6efd;
+    --primary-dark:#0b5ed7;
+    --success:#198754;
+    --green-light:#22db14;
+    --green-dark:#4fa74f;
+    --green-darker:#1f513b;
+    --danger:#dc3545;
+    --mustard :#daa520;
+    --gray-light:rgb(248, 249, 250);
+    --gray-dark:#000000a6;
+    
+    --accent: var(--green-dark);
+}
+
+* {
+    @apply break-all sm:break-normal;
+}
+
+
+
+@layer base {
+    h1,
+    h2,
+    h3,
+    h5 {
+        @apply font-medium mb-2 uppercase
+    }
+    h1 {
+        @apply text-2xl sm:text-3xl lg:text-4xl
+    }
+    h2 {
+        @apply text-2xl sm:text-3xl lg:text-4xl
+    }
+    h3 {
+        @apply text-lg sm:text-xl lg:text-2xl
+    }
+    h5 {
+        @apply sm:text-lg lg:text-xl
+    }
+    p {
+        @apply mb-4
+    }
+}
+
+nav a:hover,
+nav a.active {
+    @apply text-black
+}
+
+.row {
+    @apply flex flex-wrap px-4 py-8 items-center
+}
+
+.btn {
+    @apply w-3/4 px-3 py-1.5 rounded-lg text-white bg-accent
+}
+
+.btn-translate {
+    @apply translate-y-48 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transDuration-500
+}
+
+.btn-outline-accent {
+    @apply lg:text-xl border rounded-lg py-2 px-4 transDuration-300
+}
+
+.enabled-btn {
+    @apply text-accent border-accent hover:border-accent hover:bg-accent hover:text-white
+}
+
+.disabled-btn {
+    @apply text-gray-600 border-gray-600
+}
+
+.category-img {
+    height: 200px
+}
+
+.transDuration-300 {
+    @apply transition duration-300
+}
+
+.transDuration-500 {
+    @apply transition duration-500
+}
