@@ -26,7 +26,6 @@ function BrandModal({brandId, isModal, setIsModal}) {
     // Hide the modal
     const handleHideModal = () => {
         setIsModal(false);
-        console.log(isOpenModal);
     };
 
     const modalClasses = `overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 bg-black/50 transDutation-300 ${
@@ -37,7 +36,6 @@ function BrandModal({brandId, isModal, setIsModal}) {
     {data && isModal && (
         <div id="modalEl" 
             tabIndex={-1} aria-hidden="true"
-            // onClick={handleHideModal}
             key={data._id}
             className={modalClasses}>
             <div className="relative p-4 w-full max-w-md max-h-full mx-auto">

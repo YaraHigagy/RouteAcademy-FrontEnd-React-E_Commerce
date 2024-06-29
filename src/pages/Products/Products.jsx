@@ -8,7 +8,7 @@ import { ClimbingBoxLoader } from 'react-spinners';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import useProducts from '../../Hooks/useProducts';
-import { Product } from '../../components';
+import { Product, Search } from '../../components';
 
 function Products() {
 
@@ -28,11 +28,10 @@ function Products() {
 
     return <>
         <div className="row gap-y-6">
-
+            <Search />
             {data.map((product) => 
                 <Product product={product} key={product.id}/>
             )}
-
         </div>
     </>
 }

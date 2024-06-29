@@ -123,7 +123,7 @@ function ProductDetails() {
                 <Slider ref={sliderRef} {...settings}>
                     {productDetails?.images?.map((src) => <img key={src} className='w-full' src={src} alt={productDetails?.title} />)}
                 </Slider>
-                <div className='flex justify-center items-center gap-4'>
+                <div className='flex justify-center items-center gap-4 mt-4'>
                     <button className="w-4 h-2 bg-slate-300 rounded hover:bg-slate-400" onClick={previous}></button>
                     <button className="w-4 h-2 bg-slate-300 rounded hover:bg-slate-400" onClick={next}></button>
                 </div>

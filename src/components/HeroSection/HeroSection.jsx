@@ -36,8 +36,8 @@ function HeroSection() {
     }, []);
 
     return <>
-        <div className='flex justify-center items-center'>
-            <div className='flex justify-center items-center w-full lg:w-1/2 mx-6'>
+        <div className='container'>
+            <div className='row justify-center items-center w-full lg:w-1/2 mx-auto'>
                 <div className='w-full md:w-1/2 flex flex-col'>
                     <Slider ref={sliderRef} {...settings} className='mb-10'>
                             <img className='w-full object-cover object-center' src={img3} alt='' />
@@ -49,7 +49,7 @@ function HeroSection() {
                         <button className="w-4 h-2 bg-slate-300 rounded hover:bg-slate-400" onClick={next}></button>
                     </div>
                 </div>
-                <div className='w-full md:w-1/2 flex flex-col'>
+                <div className='w-full md:w-1/2 flex flex-col mt-6 md:mt-0'>
                     <img className='w-full object-cover object-center' src={img1} alt='' />
                     <img className='w-full object-cover object-center' src={img2} alt='' />
                 </div>

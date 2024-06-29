@@ -14,6 +14,7 @@ import {
     ForgetPassword,
     VerifyResetCode,
     ResetPassword,
+    CheckOut,
     NotFound,
     Layout
 } from './components'
@@ -52,6 +53,7 @@ const router = createBrowserRouter([
         {path:'forget-Password', element: <ForgetPassword />},
         {path:'verify-reset-code', element: <VerifyResetCode />},
         {path:'reset-password', element: <ResetPassword />},
+        {path:'check-out', element: <CheckOut />},
         {path:'*', element: <NotFound />},
     ]}
 ]);

@@ -14,7 +14,7 @@ function Search() {
 
     const inputRef = useRef(null);
     const [productsList, setProductsList] = useState([]);
-    const {getProductsFromSearch, searchParamKey, setSearchParamKey, searchParamValue, setSearchParamValue} = useContext(SearchProductsContext);
+    const {setSearchParamKey, setSearchParamValue} = useContext(SearchProductsContext);
     // const categories = useCategories();
 
     function handleSubmit(e) {

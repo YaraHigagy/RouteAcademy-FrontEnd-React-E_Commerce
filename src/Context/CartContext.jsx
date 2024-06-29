@@ -5,6 +5,9 @@ export let CartContext = createContext();
 
 function CartContextProvider(props) {
 
+    const [apiError, setApiError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [userId, setUserId] = useState('');
     const [numOfCartItems, setNumOfCartItems] = useState(localStorage.getItem('NumOfCartItems'));
     localStorage.setItem('NumOfCartItems', numOfCartItems? numOfCartItems : 0);
 
@@ -18,14 +21,17 @@ function CartContextProvider(props) {
         }, {
             headers
         })
-        .then((response) => response)
+        .then((res) => res)
         .catch((err) => err)
     }
 
     function getCartItems() {
         return axios.get(`https://ecommerce.routemisr.com/api/v1/cart`, {
             headers
-        }).then((res) => res)
+        }).then((res) => {
+            setUserId(res.data.data.cartOwner);
+            return res;
+        })
             .catch((err) => err)
     }
 
@@ -42,7 +48,7 @@ function CartContextProvider(props) {
         }, {
             headers
         })
-        .then((response) => response)
+        .then((res) => res)
         .catch((err) => err)
     }
 
@@ -53,21 +59,36 @@ function CartContextProvider(props) {
             .catch((err) => err)
     }
 
-    function checkoutSession() {
-        return axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/665b3897c20c3e034450c7a3?url=http://localhost:5173`, {
-            "shippingAddress":{
-                "details": "details",
-                "phone": "01010700999",
-                "city": "Cairo"
-                }
+    function checkoutSession(shippingAddress) {
+        setIsLoading(true);
+        return axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${userId}?url=http://localhost:5173`, {
+            shippingAddress
         }, {
             headers
         })
-        .then((response) => response)
-        .catch((err) => err)
+        .then((res) => {
+            setIsLoading(false);
+            if(res?.data.status == 'success') {
+                window.open(res.data.session.url);
+                return res;
+            } else {
+            setApiError(err.message || 'An error occurred');
+            }
+        })
+        .catch((err) => {
+            setIsLoading(false);
+            setApiError(err.message || 'An error occurred');
+        })
     }
 
-    return <CartContext.Provider value={{addToCard, getCartItems, removeCartItem, updateCartItem, clearCart, checkoutSession, numOfCartItems, setNumOfCartItems}}>
+    function getUserOrders() {
+        return axios.get(`https://ecommerce.routemisr.com/api/v1/orders/user/${userId}`, {
+            headers
+        }).then((res) => res.data.find(obj => obj.user._id === userId))
+            .catch((err) => err)
+    }
+
+    return <CartContext.Provider value={{addToCard, getCartItems, removeCartItem, updateCartItem, clearCart, checkoutSession, getUserOrders, numOfCartItems, setNumOfCartItems}}>
         {props.children}
     </CartContext.Provider>
 }

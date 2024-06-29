@@ -18,7 +18,6 @@ function Home() {
     }, []);
 
     return <>
-    <MainSlider />
         <HeroSection />
         <CategorieSlider />
         <Search />

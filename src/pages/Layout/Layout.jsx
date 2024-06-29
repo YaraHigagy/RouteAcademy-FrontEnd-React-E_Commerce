@@ -16,13 +16,15 @@ function Layout() {
 
     return <>
         <Navbar />
-        {shouldApplyContainer ? (
-                <div className='container'>
-                    <Outlet />
-                </div>
-            ) : (
-            <Outlet />
-        )}
+        <div className='py-12 my-12'>
+            {shouldApplyContainer ? (
+                    <div className='container'>
+                        <Outlet />
+                    </div>
+                ) : (
+                <Outlet />
+            )}
+        </div>
         <Footer />
     </>
 }

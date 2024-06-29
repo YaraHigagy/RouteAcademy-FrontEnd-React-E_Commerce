@@ -46,7 +46,7 @@ function Navbar() {
     }, []);
 
     return <>
-        <nav className="bg-gray-light p-2 sticky top-0 left-0 right-0 z-40">
+        <nav className="bg-gray-light p-2 fixed top-0 left-0 right-0 z-40">
             <div className="container">
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto">
                     <Link to='home' className="flex flex-wrap items-center space-x-1 sm:space-x-3 rtl:space-x-reverse text-xl sm:text-2xl">
@@ -85,10 +85,10 @@ function Navbar() {
                         <ul className="font-medium ms-auto flex flex-col items-center p-4 lg:p-0 mt-4 rounded-lg lg:flex-row lg:mt-0">
                             {userLogin === null ? <>
                                 <li>
-                                    <NavLink to='' className="block py-2 px-3 text-gray-dark rounded hover:bg-gray-100 lg:hover:bg-transparent lg:p-2">Login</NavLink>
+                                    <NavLink to='register' className="block py-2 px-3 text-gray-dark rounded hover:bg-gray-100 lg:hover:bg-transparent lg:p-2">Register</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to='register' className="block py-2 px-3 text-gray-dark rounded hover:bg-gray-100 lg:hover:bg-transparent lg:p-2">Register</NavLink>
+                                    <NavLink to='' className="block py-2 px-3 text-gray-dark rounded hover:bg-gray-100 lg:hover:bg-transparent lg:p-2">Log in</NavLink>
                                 </li>
                             
                             </> : <>

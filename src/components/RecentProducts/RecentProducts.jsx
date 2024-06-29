@@ -15,7 +15,7 @@ import { SearchProductsContext } from '../../Context/SearchProductsContext';
 
 function RecentProducts() {
 
-    const {getProductsFromSearch, searchParamKey, setSearchParamKey, searchParamValue, setSearchParamValue} = useContext(SearchProductsContext);
+    const {getProductsFromSearch, searchParamKey, searchParamValue} = useContext(SearchProductsContext);
 
     function getRecent() {
         return axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
@@ -35,7 +35,11 @@ function RecentProducts() {
                         case 'brand':
                             return products.filter(prd => prd.brand.name.toLowerCase().includes(searchParamValue.toLowerCase()));
                         default:
-                            return products;
+                            return products.filter(prd => 
+                                prd.brand.name.toLowerCase().includes(searchParamValue.toLowerCase()) ||
+                                prd.category.name.toLowerCase().includes(searchParamValue.toLowerCase()) ||
+                                prd.title.toLowerCase().includes(searchParamValue.toLowerCase())
+                            );
                     }
                 }
                 return products;
