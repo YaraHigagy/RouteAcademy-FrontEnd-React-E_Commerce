@@ -13,6 +13,7 @@ import { SearchProductsContext } from '../../Context/SearchProductsContext';
 
 function Products() {
 
+    const {products, isFiltered} = useContext(SearchProductsContext);
     const {data, isError, error, isLoading, isFetching} = useProducts();
 
     if(isLoading) {
@@ -30,9 +31,15 @@ function Products() {
     return <>
         <div className="row gap-y-6">
             <Search />
-            {data.map((product) => 
-                <Product product={product} key={product.id}/>
-            )}
+            {isFiltered && products && products.map((product) => 
+                    <Product product={product} key={product.id}/>
+                )}
+                {isFiltered && !products.length && 
+                    (<p className='font-medium text-xl'>No Items yet.</p>)
+                }
+                {!isFiltered && data && data.map((product) => 
+                    <Product product={product} key={product.id}/>
+                )}
         </div>
     </>
 }
