@@ -9,19 +9,34 @@ function SearchProductsContextProvider(props) {
 
     const [searchParamKey, setSearchParamKey] = useState('category');
     const [searchParamValue, setSearchParamValue] = useState('');
+    const [products, setProducts] = useState([]);
+    const [isFiltered, setIsFiltered] = useState(false);
 
     let headers = {
         token: localStorage.getItem('UserToken')
     }
 
-    function getProductsFromSearch() {
-        return axios.get(`https://ecommerce.routemisr.com/api/v1/products/${searchParamKey}=${searchParamValue}`, {
+    function getProductsByCategory(categoryId) {
+        return axios.get(`https://ecommerce.routemisr.com/api/v1/products?category[in][]=${categoryId}`, {
             headers
-        }).then((res) => res)
+        }).then((res) => {
+                setProducts(res.data.data);
+            })
             .catch((err) => err)
     }
 
-    return <SearchProductsContext.Provider value={{getProductsFromSearch, searchParamKey, setSearchParamKey, searchParamValue, setSearchParamValue}}>
+    function getProductsByBrand(brandId) {
+        return axios.get(`https://ecommerce.routemisr.com/api/v1/products?brand=${brandId}`, {
+            headers
+        }).then((res) => {
+                setProducts(res.data.data);
+            })
+            .catch((err) => err)
+    }
+
+    return <SearchProductsContext.Provider value={{getProductsByCategory, getProductsByBrand, products, setProducts,
+                                isFiltered, setIsFiltered,
+                                searchParamKey, setSearchParamKey, searchParamValue, setSearchParamValue}}>
         {props.children}
     </SearchProductsContext.Provider>
 }

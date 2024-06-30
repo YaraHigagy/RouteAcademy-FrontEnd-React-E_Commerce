@@ -50,8 +50,10 @@
 }
 
 nav a:hover,
-nav a.active {
-    @apply text-black
+nav a.active,
+button.filterTab:hover,
+button.filterTab.active {
+    @apply text-accent border-accent
 }
 
 .row {

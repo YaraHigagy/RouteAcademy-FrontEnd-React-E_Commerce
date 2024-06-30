@@ -12,42 +12,12 @@ import { CartContext } from '../../Context/CartContext';
 import { WishListContext } from '../../Context/WishListContext';
 import Product from '../Product/Product';
 import { SearchProductsContext } from '../../Context/SearchProductsContext';
+import useProducts from '../../Hooks/useProducts';
 
 function RecentProducts() {
 
-    const {getProductsFromSearch, searchParamKey, searchParamValue} = useContext(SearchProductsContext);
-
-    function getRecent() {
-        return axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
-    }
-
-    let { data, isError, error, isLoading, isFetched } = useQuery({
-        queryKey:['recentProducts'],
-        queryFn:getRecent,
-        gcTime:1000,
-        select: (data) => {
-            const products = data.data.data;
-            if (data && data.data && data.data.data) {
-                if (searchParamKey && searchParamValue) {
-                    switch (searchParamKey) {
-                        case 'category':
-                            return products.filter(prd => prd.category.name.toLowerCase().includes(searchParamValue.toLowerCase()));
-                        case 'brand':
-                            return products.filter(prd => prd.brand.name.toLowerCase().includes(searchParamValue.toLowerCase()));
-                        default:
-                            return products.filter(prd => 
-                                prd.brand.name.toLowerCase().includes(searchParamValue.toLowerCase()) ||
-                                prd.category.name.toLowerCase().includes(searchParamValue.toLowerCase()) ||
-                                prd.title.toLowerCase().includes(searchParamValue.toLowerCase())
-                            );
-                    }
-                }
-                return products;
-            } else {
-                return products;
-            }
-        },
-    })
+    const {products, isFiltered} = useContext(SearchProductsContext);
+    const {data, isError, error, isLoading, isFetching} = useProducts();
 
     if(isLoading) {
         return <div className='py-8 w-full flex justify-center'>
@@ -61,10 +31,24 @@ function RecentProducts() {
         </div>
     }
 
+    // if (isFiltered && !products.length) {
+    //     return (
+    //         <div className='py-8 w-full flex justify-center'>
+    //             <ClimbingBoxLoader color='green' />
+    //         </div>
+    //     );
+    // }
+
     return <>
         <div className="container">
             <div className="row gap-y-6">
-                {data.map((product) => 
+                {isFiltered && products && products.map((product) => 
+                    <Product product={product} key={product.id}/>
+                )}
+                {isFiltered && !products.length && 
+                    (<p className='font-medium text-xl'>No Items yet.</p>)
+                }
+                {!isFiltered && data && data.map((product) => 
                     <Product product={product} key={product.id}/>
                 )}
             </div>

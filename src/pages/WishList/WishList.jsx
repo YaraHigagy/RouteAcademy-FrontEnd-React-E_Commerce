@@ -41,6 +41,7 @@ function WishList() {
 
     useEffect(() => {
         getWishList();
+        // console.log(wishListDetails);
     }, [wishListDetails]);
 
     return <> 
@@ -48,7 +49,7 @@ function WishList() {
             <h2 className='capitalize mb-6'>My Wish List</h2>
             <table className="w-full text-xl text-start rtl:text-right text-black-mut">
                 <tbody>
-                {wishListDetails?.data?.products?.length > 0 ? (
+                {wishListDetails?.data?.length > 0 ? (
                     wishListDetails?.data?.map((product) => 
                     <tr key={product.id} className="border-b flex flex-wrap sm:flex-nowrap">
                         <td className="sm:w-1/2 md:w-2/6 xl:w-1/6 py-4">
@@ -72,9 +73,11 @@ function WishList() {
                             </div>
                         </td>
                     </tr>
-                    )) :
-                    (<p className='font-medium text-xl'>No Items yet.</p>)
-                } 
+                    )) : (
+                        <tr>
+                            <td colSpan="2" className='font-medium text-xl'>No Items yet.</td>
+                        </tr>
+                    )}
                 </tbody>
             </table>
         </div>

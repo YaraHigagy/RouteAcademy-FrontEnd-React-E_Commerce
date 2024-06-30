@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
@@ -9,6 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import useProducts from '../../Hooks/useProducts';
 import { Product, Search } from '../../components';
+import { SearchProductsContext } from '../../Context/SearchProductsContext';
 
 function Products() {
 
