@@ -50,10 +50,10 @@ function AllOrders({isModal, setIsModal}) {
                     {/* Modal body */}
                     <div className="flex">
                         <div className='w-2/5 px-6 py-4'>
-                            <p className='font-medium border-b py-4'>Thanks for shopping with us <span>{orderDetails.user.name}</span></p>
+                            <p className='font-medium border-b py-4 mb-0'>Thanks for shopping with us <span>{orderDetails.user.name}</span></p>
                             <div className='border-b py-4'>
-                                <h4>Shipping details:</h4>
-                                <ul>
+                                <h4 className='font-medium py-2'>Shipping details:</h4>
+                                <ul className='indent'>
                                     <li><span>{orderDetails.shippingAddress.details}</span></li>
                                     <li><span>{orderDetails.shippingAddress.city}</span></li>
                                     <li><span>{orderDetails.shippingAddress.phone}</span></li>

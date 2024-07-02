@@ -8,6 +8,7 @@ function CartContextProvider(props) {
     const [apiError, setApiError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [userId, setUserId] = useState('');
+    const [cartId, setCartId] = useState('');
     const [numOfCartItems, setNumOfCartItems] = useState(localStorage.getItem('NumOfCartItems'));
     localStorage.setItem('NumOfCartItems', numOfCartItems? numOfCartItems : 0);
 
@@ -30,6 +31,8 @@ function CartContextProvider(props) {
             headers
         }).then((res) => {
             setUserId(res.data.data.cartOwner);
+            setCartId(res.data.data._id);
+            console.log(res);
             return res;
         })
             .catch((err) => err)
@@ -61,7 +64,7 @@ function CartContextProvider(props) {
 
     function checkoutSession(shippingAddress) {
         setIsLoading(true);
-        return axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${userId}?url=http://localhost:5173`, {
+        return axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=http://localhost:5173`, {
             shippingAddress
         }, {
             headers
