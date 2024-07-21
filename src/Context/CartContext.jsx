@@ -32,7 +32,6 @@ function CartContextProvider(props) {
         }).then((res) => {
             setUserId(res.data.data.cartOwner);
             setCartId(res.data.data._id);
-            console.log(res);
             return res;
         })
             .catch((err) => err)
@@ -62,21 +61,17 @@ function CartContextProvider(props) {
             .catch((err) => err)
     }
 
-    function checkoutSession(shippingAddress) {
+    function checkoutSession(url, shippingAddress) {
         setIsLoading(true);
-        return axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=http://localhost:5173`, {
+        // return axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=http://localhost:5173`, {
+        return axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=${url}`, {
             shippingAddress
         }, {
             headers
         })
         .then((res) => {
             setIsLoading(false);
-            if(res?.data.status == 'success') {
-                window.open(res.data.session.url);
-                return res;
-            } else {
-            setApiError(err.message || 'An error occurred');
-            }
+            return res;
         })
         .catch((err) => {
             setIsLoading(false);

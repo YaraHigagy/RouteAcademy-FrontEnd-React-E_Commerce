@@ -13,13 +13,13 @@ function CheckOut() {
     const [isOpenModal, setIsOpenModal] = useState(false);
     const { checkoutSession, apiError, setApiError, isLoading, getUserOrders } = useContext(CartContext);
     // let navigate = useNavigate();
-
+    
     let validationSchema = Yup.object().shape({
         details: Yup.string().max(500, 'Address must be at most 500 characters').required('Address is required'),
         phone:Yup.string().matches(/^01[0125][0-9]{8}$/, 'Phone must be valid Egyptian number').required('Phone is required'),
         city:Yup.string().matches(/^[A-Za-zÀ-ÖØ-öø-ÿ' -]{1,}$/, 'City name is not valid').max(100, 'City name must be at most 500 characters').required('City name is required'),
     })
-
+    
     let formik = useFormik({
         initialValues:{
             details:'',
@@ -28,10 +28,18 @@ function CheckOut() {
         },
         validationSchema,
         onSubmit:() => {
-            checkoutSession();
+            handleCheckOut('http://localhost:5173');
             setIsOpenModal(true);
         }
     })
+
+    async function handleCheckOut(url) {
+        let {data} = await checkoutSession(url, formik.values);
+        if(data.status == 'success') {
+            // window.open(data.session.url);
+            window.location.href = data.session.url;
+        }
+    }
 
     useEffect(() => {
         // setApiError('');
